@@ -1,0 +1,21 @@
+// --------------------------------------------------------------------cheba-import-command
+
+// 命令释义
+// -d 后是数据库的名称
+// -c 后是Collection(即表)的名称
+// --drop 后是json脚本的路径
+
+mongoimport -d cnrvoice-cheba -c menu --drop /data/script/cheba/mongo/10_menu_init_data.json
+
+
+// --------------------------------------------------------------------cheba-export--command
+
+// 命令释义
+// -d 指定数据库database
+// -c 指定集合collection
+// -o 指定输出
+// 最后是输出文件路径
+
+mongoexport -d cnrvoice-cheba -c menu -o /data/mongo/script/cheba/10_menu_init_data.json 
+//v1.1.0
+mongoexport -d cnrvoice-cheba -c menu -o /data/mongo/script/cheba/v1.1.0_menu_init_data.json

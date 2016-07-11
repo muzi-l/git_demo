@@ -1,0 +1,25 @@
+// --------------------------------------------------------------------cheba-import-command
+
+/** -u 指定用户名
+/** -p 指定使用密码
+/** -h 指定IP地址
+/** -P 指定端口号
+/** cnrvoice 为数据库名
+/** 最后是导出文件路径
+
+mysql -u root -p -h 127.0.0.1 -P 3308 < /data/script/cheba/mysql/10_cheba_init_create.sql
+
+mysql -u root -p -h 127.0.0.1 -P 3308 cnrvoice-cheba < /data/script/cheba/mysql/20_cheba_init_data.sql
+
+mysql -u root -p -h 127.0.0.1 -P 3308 cnrvoice-cheba < /data/script/cheba/mysql/30_cheba_account_init_create.sql
+
+mysql -u root -p -h 127.0.0.1 -P 3308 cnrvoice-cheba < /data/script/cheba/mysql/40_cheba_account_init_data.sql
+// --------------------------------------------------------------------cheba-export--command
+
+/** -u 指定用户名
+/** -p 指定使用密码
+/** -h 指定IP地址
+/** -P 指定端口号
+/** cnrvoice 为数据库名
+/** 最后是导入文件路径
+

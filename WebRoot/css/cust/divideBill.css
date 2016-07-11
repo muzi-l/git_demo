@@ -1,0 +1,17 @@
+.deDet {
+	border-style: solid;
+	border-color: #A4BED4;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+.deTitle {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+.title{
+	border-color: green;
+	border-bottom-style: outset;
+	color: red;
+	text-align:center;
+}
+

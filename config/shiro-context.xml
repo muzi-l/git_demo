@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login.html" />
+		<property name="unauthorizedUrl" value="/login.html" />
+		<property name="filterChainDefinitions">
+			<value>
+				/img/** = anon
+				/js/** = anon
+				/css/** = anon
+				/login.html = anon
+				/signin = anon
+				/menuData = authc
+				/manager/userinfo/**=authc,perms[A050.B040]
+				/manager/subsystem/**=authc,perms[A050.B050]
+				/manager/userinfoadd/**=authc,perms[A050.B050]
+				/manager/userinfoedit/**=authc,perms[A050.B050]
+				/manager/program/**=authc,perms[A040.B010]
+				/host/**=authc,perms[A040.B020]
+				/manager/user/**=authc,perms[A050.B010]
+				/manager/useradd/**=authc,perms[A050.B010]
+				/manager/useredit/**=authc,perms[A050.B010]
+				/manager/role/**=authc,perms[A050.B020]
+				/manager/roleadd/**=authc,perms[A050.B020]
+				/manager/roleedit/**=authc,perms[A050.B020]
+				/manager/password/**=authc,perms[A050.B030]
+				/manager/updatepassword/**=authc,perms[A050.B030]
+			</value>
+		</property>
+	</bean>
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="realm" />
+		<property name="sessionManager" ref="sessionManager" />
+	</bean>
+	
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="globalSessionTimeout" value="${shiro.global.session.timeout}"></property>
+	</bean>
+
+	<bean id="realm" class="com.cnrvoice.account.security.ShiroHibernateRealm">
+		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
+	</bean>
+	
+	<bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.Sha512CredentialsMatcher">
+		<property name="hashSalted" value="true"></property>
+		<property name="hashIterations" value="1024"></property>
+		<property name="storedCredentialsHexEncoded" value="false"></property>
+	</bean>
+</beans>

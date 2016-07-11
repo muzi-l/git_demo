@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        ">
+
+	<!-- 注解扫描配置 -->
+	<!-- ______________________________________ 启动注解 -->
+	<mvc:annotation-driven conversion-service="conversionService" />
+	<!-- ______________________________________ 注解自动扫描的包名 -->
+	<context:component-scan base-package="com.cnrvoice" />
+
+	<!-- 静态资源映射 -->
+	<mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
+	<mvc:resources mapping="/index.html" location="/index.html" />
+	<mvc:resources mapping="/login.html" location="/login.html" />
+	<mvc:resources mapping="/img/**" location="/img/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/flash/**" location="/flash/" />
+
+	<!-- 动态资源注解映射 -->
+	<!-- ______________________________________ URL映射到Controller类上 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="useDefaultSuffixPattern" value="false" />
+	</bean>
+	<!-- ______________________________________ URL映射到Controller里的method上 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters"><!-- 输出数据转换 -->
+			<list>
+				<bean
+					class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- <bean id="validator" -->
+	<!-- class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" 
+		/> -->
+	<!-- 输入参数绑定 -->
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.cnrvoice.base.binder.DateConverter" />
+				<!-- <bean class="com.cnrvoice.base.binder.Base64StringConverter" /> -->
+				<!-- <bean class="com.cnrvoice.base.binder.Base64DateConverter" /> -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 消息资源配置 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages.default</value>
+				<value>messages.system</value>
+				<value>messages.business</value>
+				<value>messages.validation</value>
+				<value>messages.information</value>
+			</list>
+		</property>
+	</bean>
+	<bean class="com.cnrvoice.base.message.MessageSourceBundler" />
+
+	<!-- 异常解析器 -->
+	<bean id="exceptionResolver"
+		class="com.cnrvoice.base.exception.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView" value="error"></property>
+		<!-- <property name="defaultStatusCode" value="500"></property> -->
+	</bean>
+
+	<!-- 页面解析器 -->
+	<!-- ______________________________________ jsp页面解析器 -->
+	<bean id="jspViewResolver"
+	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="cache" value="false" />
+	<property name="prefix" value="/WEB-INF/view/" />
+	<property name="suffix" value=".jsp" />
+	<property name="contentType">
+	<value>text/html;charset=UTF-8</value>
+	</property>
+	</bean> 
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000" />
+		<property name="resolveLazily" value="true" />
+	</bean>
+</beans>
