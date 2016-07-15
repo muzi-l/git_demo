@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.cnrvoice.account.entity">
+    <class name="CommonAccount" table="cheba_account_statusset">
+        <id name="uuid" type="string">
+            <column name="uuid" length="32" />
+            <generator class="assigned" />
+        </id>
+        <version name="version" type="int" access="field">
+            <column name="version" not-null="true" />
+        </version>
+        <property name="type" type="string">
+            <column name="type" length="256" not-null="true" />
+        </property>
+        <property name="key" type="string">
+            <column name="data" length="256" not-null="true" />
+        </property>
+        <property name="value" type="string">
+            <column name="value" length="256" />
+        </property>
+        <property name="descr" type="string">
+            <column name="descr" length="256" />
+        </property>
+        <property name="sortNo" type="string">
+            <column name="sort_no" length="256" />
+        </property>
+        <property name="createdTime" type="timestamp">
+            <column name="created_time" length="19" not-null="true" />
+        </property>
+        <property name="createrUuid" type="string">
+            <column name="creater_uuid" length="32" not-null="true" />
+        </property>
+        <property name="updatedTime" type="timestamp" access="field" generated="always">
+            <column name="updated_time" length="19" not-null="true" />
+        </property>
+        <property name="updaterUuid" type="string">
+            <column name="updater_uuid" length="32" not-null="true" />
+        </property>
+    </class>
+    <class name="Permi" table="cheba_account_permi">
+        <id name="uuid" type="string">
+            <column name="uuid" length="32" />
+            <generator class="uuid" />
+        </id>
+        <version name="version" type="int" access="field">
+            <column name="version" not-null="true" />
+        </version>
+        <property name="key" type="string">
+            <column name="data" length="256" not-null="true" unique="true" />
+        </property>
+        <property name="value" type="string">
+            <column name="value" length="256" />
+        </property>
+        <property name="descr" type="string">
+            <column name="descr" length="256" />
+        </property>
+        <property name="sortNo" type="string">
+            <column name="sort_no" length="256" />
+        </property>
+        <property name="createdTime" type="timestamp">
+            <column name="created_time" length="19" not-null="true" />
+        </property>
+        <property name="createrUuid" type="string">
+            <column name="creater_uuid" length="32" not-null="true" />
+        </property>
+        <property name="updatedTime" type="timestamp" access="field" generated="always">
+            <column name="updated_time" length="19" not-null="true" />
+        </property>
+        <property name="updaterUuid" type="string">
+            <column name="updater_uuid" length="32" not-null="true" />
+        </property>
+    </class>
+    <class name="Role" table="cheba_account_role">
+        <id name="uuid" type="string">
+            <column name="uuid" length="32" />
+            <generator class="uuid" />
+        </id>
+        <version name="version" type="int" access="field">
+            <column name="version" not-null="true" />
+        </version>
+        <property name="name" type="string">
+            <column name="name" length="256" not-null="true" unique="true" />
+        </property>
+        <property name="descr" type="string">
+            <column name="descr" length="256" />
+        </property>
+        <property name="sortNo" type="string">
+            <column name="sort_no" length="256" />
+        </property>
+        <property name="createdTime" type="timestamp">
+            <column name="created_time" length="19" not-null="true" />
+        </property>
+        <property name="createrUuid" type="string">
+            <column name="creater_uuid" length="32" not-null="true" />
+        </property>
+        <property name="updatedTime" type="timestamp" access="field" generated="always">
+            <column name="updated_time" length="19" not-null="true" />
+        </property>
+        <property name="updaterUuid" type="string">
+            <column name="updater_uuid" length="32" not-null="true" />
+        </property>
+    </class>
+    <class name="RoleAndPermi" table="cheba_account_role_permi">
+        <id name="uuid" type="string">
+            <column name="uuid" length="32" />
+            <generator class="uuid" />
+        </id>
+        <version name="version" type="int" access="field">
+            <column name="version" not-null="true" />
+        </version>
+        <property name="roleUuid" type="string">
+            <column name="role_uuid" length="32" not-null="true" />
+        </property>
+        <property name="permiUuid" type="string">
+            <column name="permi_uuid" length="32" not-null="true" />
+        </property>
+        <property name="descr" type="string">
+            <column name="descr" length="256" />
+        </property>
+        <property name="sortNo" type="string">
+            <column name="sort_no" length="256" />
+        </property>
+        <property name="createdTime" type="timestamp">
+            <column name="created_time" length="19" not-null="true" />
+        </property>
+        <property name="createrUuid" type="string">
+            <column name="creater_uuid" length="32" not-null="true" />
+        </property>
+        <property name="updatedTime" type="timestamp" access="field" generated="always">
+            <column name="updated_time" length="19" not-null="true" />
+        </property>
+        <property name="updaterUuid" type="string">
+            <column name="updater_uuid" length="32" not-null="true" />
+        </property>
+    </class>
+    <class name="User" table="cheba_account_user">
+        <id name="uuid" type="string">
+            <column name="uuid" length="32" />
+            <generator class="uuid" />
+        </id>
+        <version name="version" type="int" access="field">
+            <column name="version" not-null="true" />
+        </version>
+        <property name="loginName" type="string">
+            <column name="login_name" length="256" not-null="true" unique="true" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="2" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="2" />
+        </property>
+        <property name="descr" type="string">
+            <column name="descr" length="256" />
+        </property>
+        <property name="sortNo" type="string">
+            <column name="sort_no" length="256" />
+        </property>
+        <property name="createdTime" type="timestamp">
+            <column name="created_time" length="19" not-null="true" />
+        </property>
+        <property name="createrUuid" type="string">
+            <column name="creater_uuid" length="32" not-null="true" />
+        </property>
+        <property name="updatedTime" type="timestamp" access="field" generated="always">
+            <column name="updated_time" length="19" not-null="true" />
+        </property>
+        <property name="updaterUuid" type="string">
+            <column name="updater_uuid" length="32" not-null="true" />
+        </property>
+    </class>
+    <class name="UserAndRole" table="cheba_account_user_role">
+        <id name="uuid" type="string">
+            <column name="uuid" length="32" />
+            <generator class="uuid" />
+        </id>
+        <version name="version" type="int" access="field">
+            <column name="version" not-null="true" />
+        </version>
+        <property name="userUuid" type="string">
+            <column name="user_uuid" length="32" not-null="true" />
+        </property>
+        <property name="roleUuid" type="string">
+            <column name="role_uuid" length="32" not-null="true" />
+        </property>
+        <property name="descr" type="string">
+            <column name="descr" length="256" />
+        </property>
+        <property name="sortNo" type="string">
+            <column name="sort_no" length="256" />
+        </property>
+        <property name="createdTime" type="timestamp">
+            <column name="created_time" length="19" not-null="true" />
+        </property>
+        <property name="createrUuid" type="string">
+            <column name="creater_uuid" length="32" not-null="true" />
+        </property>
+        <property name="updatedTime" type="timestamp" access="field" generated="always">
+            <column name="updated_time" length="19" not-null="true" />
+        </property>
+        <property name="updaterUuid" type="string">
+            <column name="updater_uuid" length="32" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

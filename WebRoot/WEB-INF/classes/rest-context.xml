@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
+
+	<!--unifiedResourceInvoker -->
+	<bean id="unifiedResourceInvoker"
+		class="com.cnrvoice.unified.webservice.rs.client.util.ResourceInvoker">
+		<constructor-arg name="configHolder">
+			<bean class="com.cnrvoice.unified.webservice.rs.client.util.ConfigHolder">
+				<constructor-arg name="baseUrl" value="${userinfo.url}"></constructor-arg>
+				<constructor-arg name="restTemplate" ref="restTemplate"></constructor-arg>
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="userInfoClient"
+		class="com.cnrvoice.unified.webservice.rs.client.UserInfoClient">
+		<constructor-arg name="resourceInvoker" ref="unifiedResourceInvoker"></constructor-arg>
+	</bean>
+	
+		<!-- eucinnerResourceInvoker -->
+	<bean id="eucinnerResourceInvoker"
+		class="com.cnrvoice.euc.webservice.rs.client.util.ResourceInvoker">
+		<constructor-arg name="configHolder">
+			<bean class="com.cnrvoice.euc.webservice.rs.client.util.ConfigHolder">
+				<constructor-arg name="baseUrl" value="${inner.url}"></constructor-arg>
+				<constructor-arg name="restTemplate" ref="restTemplate"></constructor-arg>
+			</bean>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="eucUserInfoClient" class="com.cnrvoice.euc.webservice.rs.client.EucUserInfoClient">
+		<constructor-arg name="resourceInvoker" ref="eucinnerResourceInvoker"></constructor-arg>
+	</bean>
+	
+	<bean id="chebaClient" class="com.cnrvoice.euc.webservice.rs.client.ChebaClient">
+		<constructor-arg name="resourceInvoker" ref="eucinnerResourceInvoker"></constructor-arg>
+	</bean>
+
+</beans>
